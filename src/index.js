@@ -23,7 +23,7 @@ var mouseleave = function (d) {
 var state_click = function (d) {
   var coords = d3.pointer(d);
   // todo нужна функция, которая определяет принадлежность тому или иному полигону
-  console.log("Mouse here!", coords[0], coords[1]);
+  console.log("Mouse here!!", coords[0], coords[1]);
 };
 
 svg
