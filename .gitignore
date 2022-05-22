@@ -1,1 +1,3 @@
 *idea
+coordinates_extraction/state_coordinates/geojson/*
+.DS_Store
