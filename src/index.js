@@ -26,6 +26,9 @@ var state_click = function (d) {
   console.log("Mouse here!!", coords[0], coords[1]);
 };
 
+// d3.csv("https://raw.githubusercontent.com/KataevaVeronika/visualization/f2f32294d450b97f999308948755110830dbc240/crime_incarceration.csv", function(data) {
+//   console.log(data);
+// });
 svg
   .append("polyline")
   .style("fill", "orange")
