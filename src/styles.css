@@ -1,0 +1,43 @@
+body {
+  font-family: sans-serif;
+  justify-content: center;
+}
+
+svg {
+  background-color: wheat;
+  outline: solid brown;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  /* position: relative; */
+}
+
+rect {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  fill: none;
+}
+
+.map {
+  /* fill: none; */
+}
+
+.chart1 {
+  fill: grey;
+  margin-top: 5px;
+  vertical-align: center;
+  text-align: right;
+  /* right: '0'; */
+}
+
+.chart2 {
+  fill: gainsboro;
+  /* left: '0'; */
+}
+
+.line {
+  fill: goldenrod;
+}
