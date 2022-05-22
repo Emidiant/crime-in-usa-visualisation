@@ -1,8 +1,22 @@
 import * as d3 from "d3";
+// sliderHorizontal, sliderVertical, sliderTop, sliderRight, sliderBottom, sliderLeft
+import { sliderBottom } from "d3-simple-slider";
+
+var title = d3
+  .select("#content")
+  .append("div")
+  .style("height", "30px")
+  .style("width", "300px")
+  .style("text-align", "center")
+  .style("font-size", "1.8em")
+  .style("margin-left", "auto")
+  .style("margin-right", "auto")
+  .html("Crime in United States");
 
 var svg = d3
   .select("#content")
   .append("svg")
+  .style("border-radius", "15px")
   // .append("g")
   .attr("width", 800)
   .attr("height", 400);
@@ -28,11 +42,53 @@ var tooltip = d3
   .style("border-radius", "5px")
   .style("padding", "10px");
 
+// <input type="range" name="mySlider" id=mySlider min="2" max="40" value="10">
+
+// var slider = d3.select("#content")
+//   .append("input")
+//   .attr("type", "range")
+//   .attr("name", "year_slider")
+//   .attr("id", "yearSlider")
+//   .attr("min", 2)
+//   .attr("max", 40)
+//   .attr("value", 10)
+//   .style("display", "block")
+//   .style("margin-top", "20px")
+//   .style("margin-left", "auto")
+//   .style("margin-right", "auto")
+//   .style("width", "700px");
+
+const slider = sliderBottom()
+  .min(2004)
+  .max(2017)
+  .step(1)
+  .width(700)
+  .displayFormat(d3.format(".0f"))
+  .tickFormat(d3.format(".0f"));
+
+const g = d3
+  .select("#content")
+  .append("svg")
+  .attr("class", "#mySlider")
+  .attr("width", 800)
+  .attr("height", 80)
+  .append("g")
+  .attr("transform", "translate(30,30)");
+
+g.call(slider);
+
+// todo listen slider
+// d3.select("#mySlider").on("change", function(d){
+//   console.log(d);
+//   // selectedValue = this.value
+//   // changeSize(selectedValue)
+// })
+
 var state_div = d3
   .select("#content")
   .append("div")
   .style("height", "30px")
-  .style("width", "100px")
+  .style("width", "200px")
   .style("text-align", "center")
   .style("font-size", "1.5em")
   .style("margin-top", "10px")

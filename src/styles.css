@@ -9,7 +9,9 @@ svg {
   display: block;
   margin-left: auto;
   margin-right: auto;
-
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 15px;
   /* position: relative; */
 }
 
@@ -41,4 +43,17 @@ rect {
 
 .line {
   fill: goldenrod;
+}
+
+.axis text,
+.slider text {
+  font-size: 1.4pm;
+}
+
+.axis text {
+  fill: rgb(33, 151, 187);
+}
+
+.slider text {
+  fill: rgb(5, 66, 94);
 }
