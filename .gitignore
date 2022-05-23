@@ -4,3 +4,4 @@ coordinates_extraction/state_coordinates/geojson/*
 node_modules
 .cache
 dist
+multipolygon

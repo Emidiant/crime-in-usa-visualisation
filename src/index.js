@@ -127,7 +127,8 @@ d3.csv(link, function (data) {
 
 // sliderHorizontal, sliderVertical, sliderTop, sliderRight, sliderBottom, sliderLeft
 
-const slider = d3.sliderBottom()
+const slider = d3
+  .sliderBottom()
   .min(2004)
   .max(2017)
   .step(1)
