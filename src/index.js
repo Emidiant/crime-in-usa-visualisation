@@ -16,7 +16,7 @@ var title = d3
 var svg = d3
   .select("#content")
   .append("svg")
-  .style("border-radius", "15px")
+  // .style("border-radius", "15px")
   // .append("g")
   .attr("width", 800)
   .attr("height", 400);
