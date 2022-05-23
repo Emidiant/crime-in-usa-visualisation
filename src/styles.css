@@ -4,8 +4,8 @@ body {
 }
 
 svg {
-   background-color: wheat;
-   outline: solid brown;
+   /*background-color: wheat;*/
+   outline: solid #aaaac2;
   display: block;
   margin-left: auto;
   margin-right: auto;
