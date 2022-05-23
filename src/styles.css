@@ -41,19 +41,17 @@ rect {
   /* left: '0'; */
 }
 
-.line {
-  fill: goldenrod;
-}
-
-.axis text,
-.slider text {
-  font-size: 1.4pm;
-}
+/*.line {*/
+/*  fill: goldenrod;*/
+/*}*/
 
 .axis text {
+  font-size: 1.2em;
   fill: rgb(33, 151, 187);
 }
 
 .slider text {
+  font-size: 0.9em;
+  font-weight: bold;
   fill: rgb(5, 66, 94);
 }
