@@ -1,6 +1,3 @@
-// import * as d3 from "d3";
-// sliderHorizontal, sliderVertical, sliderTop, sliderRight, sliderBottom, sliderLeft
-// import { sliderBottom } from "d3-simple-slider";
 
 var title = d3
   .select("#content")
@@ -56,25 +53,6 @@ var tooltip = d3
 //   .style("margin-right", "auto")
 //   .style("width", "700px");
 
-// const slider = sliderBottom()
-//   .min(2004)
-//   .max(2017)
-//   .step(1)
-//   .width(700)
-//   .displayFormat(d3.format(".0f"))
-//   .tickFormat(d3.format(".0f"));
-//
-// const g = d3
-//   .select("#content")
-//   .append("svg")
-//   .attr("class", "#mySlider")
-//   .attr("width", 800)
-//   .attr("height", 80)
-//   .append("g")
-//   .attr("transform", "translate(30,30)");
-//
-// g.call(slider);
-
 // todo listen slider
 // d3.select("#mySlider").on("change", function(d){
 //   console.log(d);
@@ -125,10 +103,11 @@ var state_click = function (d) {
 // d3.csv("https://raw.githubusercontent.com/KataevaVeronika/visualization/f2f32294d450b97f999308948755110830dbc240/crime_incarceration.csv", function(data) {
 //   console.log(data);
 // });
-const link = "./coordinates_extraction/state_coordinates/csv/polygon.csv";
+
+// почему-то ссылка побилась
 // link = "https://raw.githubusercontent.com/Emidiant/crime-in-usa-visualisation/main/coordinates_extraction/state_coordinates/csv/polygon.csv"
+link = "https://rawcdn.githack.com/Emidiant/crime-in-usa-visualisation/f16a19f937d3f8fa6fccaa046e924715dd3cbcde/coordinates_extraction/state_coordinates/csv/polygon.csv"
 d3.csv(link, function (data) {
-  // console.log(data.state)
   var state_name = data.state;
   var state_points = JSON.parse(data.new_coordinates);
 
@@ -145,3 +124,24 @@ d3.csv(link, function (data) {
     .on("click", state_click)
     .on("mouseleave", mouseleave);
 });
+
+// sliderHorizontal, sliderVertical, sliderTop, sliderRight, sliderBottom, sliderLeft
+
+const slider = d3.sliderBottom()
+  .min(2004)
+  .max(2017)
+  .step(1)
+  .width(700)
+  .displayFormat(d3.format(".0f"))
+  .tickFormat(d3.format(".0f"));
+
+const g = d3
+  .select("#content")
+  .append("svg")
+  .attr("class", "#mySlider")
+  .attr("width", 800)
+  .attr("height", 80)
+  .append("g")
+  .attr("transform", "translate(30,30)");
+
+g.call(slider);
