@@ -1,4 +1,4 @@
-import * as d3 from "d3";
+// import * as d3 from "d3";
 // sliderHorizontal, sliderVertical, sliderTop, sliderRight, sliderBottom, sliderLeft
 import { sliderBottom } from "d3-simple-slider";
 
