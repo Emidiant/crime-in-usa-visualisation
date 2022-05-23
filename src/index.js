@@ -56,24 +56,24 @@ var tooltip = d3
 //   .style("margin-right", "auto")
 //   .style("width", "700px");
 
-const slider = sliderBottom()
-  .min(2004)
-  .max(2017)
-  .step(1)
-  .width(700)
-  .displayFormat(d3.format(".0f"))
-  .tickFormat(d3.format(".0f"));
-
-const g = d3
-  .select("#content")
-  .append("svg")
-  .attr("class", "#mySlider")
-  .attr("width", 800)
-  .attr("height", 80)
-  .append("g")
-  .attr("transform", "translate(30,30)");
-
-g.call(slider);
+// const slider = sliderBottom()
+//   .min(2004)
+//   .max(2017)
+//   .step(1)
+//   .width(700)
+//   .displayFormat(d3.format(".0f"))
+//   .tickFormat(d3.format(".0f"));
+//
+// const g = d3
+//   .select("#content")
+//   .append("svg")
+//   .attr("class", "#mySlider")
+//   .attr("width", 800)
+//   .attr("height", 80)
+//   .append("g")
+//   .attr("transform", "translate(30,30)");
+//
+// g.call(slider);
 
 // todo listen slider
 // d3.select("#mySlider").on("change", function(d){
