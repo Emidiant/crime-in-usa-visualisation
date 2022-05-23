@@ -1,6 +1,6 @@
-// import * as d3 from "d3";
+import * as d3 from "d3";
 // sliderHorizontal, sliderVertical, sliderTop, sliderRight, sliderBottom, sliderLeft
-// import { sliderBottom } from "d3-simple-slider";
+import { sliderBottom } from "d3-simple-slider";
 
 var title = d3
   .select("#content")
@@ -27,8 +27,6 @@ var svg = d3
 // .attr('width', 655)
 // .attr('opacity', 0.4)
 // .attr("xlink:href", "https://states-of-america.ru/karty-ssha/karty/karta-shtatov-ssha.jpg")
-
-//   .attr("viewBox", "100 450 200 200");
 
 var tooltip = d3
   .select("#content")
@@ -123,29 +121,27 @@ var state_click = function (d) {
   state_div.html(state_name);
   console.log(state_name, coords[0], coords[1]);
 };
-//
+
 // d3.csv("https://raw.githubusercontent.com/KataevaVeronika/visualization/f2f32294d450b97f999308948755110830dbc240/crime_incarceration.csv", function(data) {
 //   console.log(data);
 // });
+const link = "./coordinates_extraction/state_coordinates/csv/polygon.csv";
+// link = "https://raw.githubusercontent.com/Emidiant/crime-in-usa-visualisation/main/coordinates_extraction/state_coordinates/csv/polygon.csv"
+d3.csv(link, function (data) {
+  // console.log(data.state)
+  var state_name = data.state;
+  var state_points = JSON.parse(data.new_coordinates);
 
-d3.csv(
-  "https://raw.githubusercontent.com/Emidiant/crime-in-usa-visualisation/main/coordinates_extraction/state_coordinates/csv/polygon.csv",
-  function (data) {
-    // console.log(data.state)
-    var state_name = data.state;
-    var state_points = JSON.parse(data.new_coordinates);
-
-    svg
-      .append("polyline")
-      .data(state_name)
-      .text(data.state)
-      .style("fill", "orange")
-      .attr("stroke", "grey")
-      .attr("opacity", 0.6)
-      .attr("points", state_points)
-      .on("mouseover", mouseover)
-      .on("mousemove", mousemove)
-      .on("click", state_click)
-      .on("mouseleave", mouseleave);
-  }
-);
+  svg
+    .append("polyline")
+    .data(state_name)
+    .text(data.state)
+    .style("fill", "orange")
+    .attr("stroke", "grey")
+    .attr("opacity", 0.6)
+    .attr("points", state_points)
+    .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
+    .on("click", state_click)
+    .on("mouseleave", mouseleave);
+});
