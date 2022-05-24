@@ -15,6 +15,10 @@ svg {
   /* position: relative; */
 }
 
+/*svg .chart1 {*/
+
+/*}*/
+
 rect {
   display: flex;
   flex-direction: row;

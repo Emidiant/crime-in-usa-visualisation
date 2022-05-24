@@ -75,6 +75,8 @@ var state_div = d3
     .style("margin-right", "auto")
     .text("National");
 
+// todo добавляешь svg
+
 var mouseover = function (d) {
   tooltip.style("visibility", "visible");
 
@@ -99,8 +101,9 @@ var mousemove = function (d) {
 var state_click = function (d) {
   var coords = d3.pointer(d);
   var state_name = d.target.firstChild.nodeValue;
-  state_div.html(state_name);
+  state_div.text(state_name);
   console.log(state_name, coords[0], coords[1]);
+  // todo обновлять два представления
 };
 
 // d3.csv("https://raw.githubusercontent.com/KataevaVeronika/visualization/f2f32294d450b97f999308948755110830dbc240/crime_incarceration.csv", function(data) {
