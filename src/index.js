@@ -137,68 +137,49 @@ function draw_map(year) {
             svg_map
                 .append("polyline")
                 .attr("class", state_name)
-                .text(data.state)
                 .style("fill", red_fill)
-                .attr("stroke", "grey")
-                .attr("opacity", default_opacity)
-                .attr("points", state_points)
-                .on("mouseover", mouseover)
-                .on("mousemove", mousemove)
-                .on("click", state_click)
-                .on("mouseleave", mouseleave);
+                .text(state_name)
+                .attr("points", state_points);
         } else {
-            console.log("multi", state_name)
-            for (var i = 0; i < state_points.length; i += 1) {
+            for (let i = 0; i < state_points.length; i += 1) {
                 svg_map
                     .append("polyline")
                     .attr("class", state_name)
                     .text(data.state)
                     .style("fill", red_fill)
-                    .attr("stroke", "grey")
-                    .attr("opacity", default_opacity)
-                    .attr("points", state_points[i])
-                    .on("mouseover", mouseover)
-                    .on("mousemove", mousemove)
-                    .on("click", state_click)
-                    .on("mouseleave", mouseleave);
+                    .attr("points", state_points[i]);
             }
         }
     } else {
-        console.log("state", state_name)
         if (state_name === "Alaska") {
-            for (var i = 0; i < state_points.length; i += 1) {
+            for (let i = 0; i < state_points.length; i += 1) {
                 svg_map
                     .append("polyline")
-                    .text(data.state)
+                    .text(state_name)
                     .attr("class", state_name)
                     .style("fill", red_fill)
-                    .attr("stroke", "grey")
-                    .attr("opacity", default_opacity)
                     .attr("points", state_points[i])
-                    .attr("transform", "translate(-90,-1070)")
-                    .on("mouseover", mouseover)
-                    .on("mousemove", mousemove)
-                    .on("click", state_click)
-                    .on("mouseleave", mouseleave);
+                    .attr("transform", "translate(-90,-1070)");
             }
         } else {
-            for (var i = 0; i < state_points.length; i += 1) {
+            for (let i = 0; i < state_points.length; i += 1) {
                 svg_map
                     .append("polyline")
                     .attr("class", state_name)
-                    .text(data.state)
+                    .text(state_name)
                     .style("fill", red_fill)
-                    .attr("stroke", "grey")
-                    .attr("opacity", default_opacity)
                     .attr("points", state_points[i])
-                    .attr("transform", "translate(680, 250)")
-                    .on("mouseover", mouseover)
-                    .on("mousemove", mousemove)
-                    .on("click", state_click)
-                    .on("mouseleave", mouseleave);
+                    .attr("transform", "translate(680, 250)");
           }
         }
     }
+    svg_map.selectAll("polyline")
+        .attr("stroke", "grey")
+        .attr("opacity", default_opacity)
+        .on("mouseover", mouseover)
+        .on("mousemove", mousemove)
+        .on("click", state_click)
+        .on("mouseleave", mouseleave);
 
 });
 
