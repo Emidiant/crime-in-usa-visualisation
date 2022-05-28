@@ -387,6 +387,7 @@ var state_click = function (d) {
     draw_crime_graph(crime, state_name);
     murder_chart.selectAll("g").remove();
     murder_chart.selectAll("path").remove();
+    murder_chart.select("image").remove();
     murder_weapon = d3.select(".chart2").select("select").property("value");
     draw_murder_graph(murder_weapon, state_name);
 }
