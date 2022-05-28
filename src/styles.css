@@ -7,10 +7,7 @@ svg {
    /*background-color: wheat;*/
    outline: solid #aaaac2;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px auto;
   border-radius: 15px;
   /* position: relative; */
 }
@@ -63,7 +60,6 @@ rect {
 .handler {
   /* circle */
   d: path("M -8, 0 a 8,8 0 1,1 16,0 a 8,8 0 1,1 -16,0");
-  /*d: path("M -5.5 -5.5 v 10 l 6 5.5 l 6 -5.5 v -10 Z");*/
   fill: #05405b;
 }
 
@@ -71,4 +67,9 @@ rect {
   stroke: #c92e2e;
   fill: none;
   stroke-width: 2;
+}
+
+select {
+  padding: 5px;
+  border-radius: 10px;
 }

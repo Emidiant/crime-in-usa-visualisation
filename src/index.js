@@ -4,9 +4,8 @@ let state_name = "National";
 const default_opacity = 0.8;
 const mouse_over_opacity = 1;
 const default_year = 2008;
-color_link = "https://raw.githubusercontent.com/Emidiant/crime-in-usa-visualisation/dev-julia/coordinates_extraction/state_coordinates/csv/color.csv";
 
-var title = d3
+const title = d3
     .select("#content")
     .append("div")
     .style("height", "30px")
@@ -17,21 +16,14 @@ var title = d3
     .style("margin-right", "auto")
     .html("Crime in United States");
 
-var svg_map = d3
+const svg_map = d3
     .select("#content")
     .append("svg")
     .attr("width", 800)
     .attr("height", 400)
     .append("g");
 
-// svg.append("svg:image")
-//     .attr('x', 70)
-//     .attr('y', 30)
-//     .attr('width', 655)
-//     .attr('opacity', 0.4)
-//     .attr("xlink:href", "https://states-of-america.ru/karty-ssha/karty/karta-shtatov-ssha.jpg")
-
-var tooltip = d3
+const tooltip = d3
     .select("#content")
     .append("div")
     .style("display", "block")
@@ -42,8 +34,6 @@ var tooltip = d3
     .style("border-width", "1px")
     .style("border-radius", "5px")
     .style("padding", "10px");
-
-// sliderHorizontal, sliderVertical, sliderTop, sliderRight, sliderBottom, sliderLeft
 
 const slider = d3
     .sliderHorizontal()
@@ -56,7 +46,7 @@ const slider = d3
     .displayFormat(d3.format(".0f"))
     .tickFormat(d3.format(".0f"))
     .on('onchange', (year) => {
-         d3.csv(color_link, function(d) {
+         d3.csv("../coordinates_extraction/state_coordinates/csv/color.csv", function(d) {
              const red_fill = d3.interpolateReds(d[year]);
             svg_map
               .selectAll('.'+ d.state)
@@ -74,7 +64,7 @@ const slider_svg = d3
     .attr("transform", "translate(30,30)")
     .call(slider);
 
-var state_div = d3
+const state_div = d3
     .select("#content")
     .append("div")
     .attr("id", "state_div")
@@ -87,7 +77,7 @@ var state_div = d3
     .style("margin-right", "auto")
     .text("National");
 
-var crime_div = d3
+const crime_div = d3
     .select("#content")
     .append("div")
     .attr("id", "crime_div")
@@ -115,10 +105,23 @@ const murder_charts_div = d3
     .style("margin-left", "10px")
     .style("display", "inline-block");
 
+const tooltip_murder = d3
+    .select("#crime_div")
+    .append("div")
+    .style("display", "block")
+    .style("position", "absolute")
+    .style("visibility", "hidden")
+    .style("background-color", "rgba(255, 255, 255, 0.7)")
+    .style("border", "solid")
+    .style("border-width", "1px")
+    .style("border-radius", "5px")
+    .style("padding", "10px");
+
 const crime_types = ['murder', 'robbery', 'agg_assault',
     'burglary', 'larceny', 'vehicle_theft',
     'rape', 'mass_shootings', 'hate_crime_murder',
     'hate_crime_other'];
+
 const crime_types_dict = {
     'murder': 'Murder', 'robbery': 'Robbery', 'agg_assault': 'Aggrevated assault',
     'burglary': 'Burglary', 'larceny': 'Larceny', 'vehicle_theft': 'Vehicle theft',
@@ -126,22 +129,18 @@ const crime_types_dict = {
     'hate_crime_other': 'Hate crime other'
 };
 
-var dropDown = d3.select(".chart1").append("select")
-        .attr("name", "name-list");
+const dropDown = d3.select(".chart1").append("select")
+    .attr("name", "name-list");
 
-var options = dropDown.selectAll("option")
+const options = dropDown.selectAll("option")
     .data(crime_types)
     .enter()
-    .append("option");
-options
-    .text(function(d) {
-        return crime_types_dict[d];
-    })
-    .attr("value", function(d) {
-        return d;
-    });
+    .append("option")
+    .text(function(d) { return crime_types_dict[d]; })
+    .attr("value", function(d) { return d; });
+
 d3.select(".chart1").select("select").on("change", function(d) {
-    var selectedOption = d3.select(this).property("value");
+    const selectedOption = d3.select(this).property("value");
     crime_chart.selectAll("g").remove();
     crime_chart.selectAll("path").remove();
     draw_crime_graph(selectedOption, state_name);
@@ -153,29 +152,25 @@ const murder_types_dict = {'murder_cutting':'Cutting murders',
                            'murder_unarmed': 'Unarmed murders',
                            'murder_other': 'Other murders'}
 
-var dropDown_murder = d3.select(".chart2").append("select")
+const dropDown_murder = d3.select(".chart2")
+    .append("select")
     .attr("name", "name-list2");
 
-var options_murder = dropDown_murder.selectAll("option")
+const options_murder = dropDown_murder.selectAll("option")
     .data(murder_types)
     .enter()
-    .append("option");
-options_murder
-    .text(function(d) {
-        return murder_types_dict[d];
-    })
-    .attr("value", function(d) {
-        return d;
-    });
+    .append("option")
+    .text(function(d) { return murder_types_dict[d]; })
+    .attr("value", function(d) { return d; });
 
 d3.select(".chart2").select("select").on("change", function(d) {
-    var selectedO = d3.select(this).property("value");
+    const selectedO = d3.select(this).property("value");
     murder_chart.selectAll("g").remove();
     murder_chart.selectAll("path").remove();
     draw_murder_graph(selectedO, state_name);
 })
 
-var crime_chart = d3
+const crime_chart = d3
     .select(".chart1")
     .append("svg")
     .style("height", height_chart + margin_chart.top + margin_chart.bottom)
@@ -183,7 +178,7 @@ var crime_chart = d3
     .append("g")
     .attr("transform", "translate(" + margin_chart.left + "," + margin_chart.top + ")");
 
-var murder_chart = d3
+const murder_chart = d3
     .select(".chart2")
     .append("svg")
     .style("height", height_chart + margin_chart.top + margin_chart.bottom)
@@ -201,15 +196,15 @@ function get_max_value(_data, crime, state_name) {
             if (_data[i].state === "National") {
                 crimes.push(_data[i][crime]);
             }
-        };
+        }
         return Math.max(...crimes);
     } else {
-        var max_value = 0;
-        for (var key in _data) {
-            if (_data[key].state != "National") {
-                var row = [max_value, _data[key][crime]]
-                var row = row.filter(value => !Number.isNaN(value));
-                var row_numbers = [];
+        let max_value = 0;
+        for (let key in _data) {
+            if (_data[key].state !== "National") {
+                let row = [max_value, _data[key][crime]];
+                row = row.filter(value => !Number.isNaN(value));
+                const row_numbers = [];
                 row.forEach(element => {
                     if (element !== undefined) {
                         row_numbers.push(element);
@@ -224,20 +219,20 @@ function get_max_value(_data, crime, state_name) {
 
 function get_min_value(_data, crime, state_name) {
     if (state_name === "National") {
-        var crimes = [];
+        const crimes = [];
         for (let i = 0; i < _data.length; i++) {
             if (_data[i].state === "National") {
                 crimes.push(_data[i][crime]);
             }
-        };
+        }
         return Math.min(...crimes);
     } else {
-        var min_value = 10E10;
-        for (var key in _data) {
-            if (_data[key].state != "National") {
-                var row = [min_value, _data[key][crime]]
-                var row = row.filter(value => !Number.isNaN(value));
-                var row_numbers = [];
+        let min_value = 10E10;
+        for (let key in _data) {
+            if (_data[key].state !== "National") {
+                let row = [min_value, _data[key][crime]];
+                row = row.filter(value => !Number.isNaN(value));
+                const row_numbers = [];
                 row.forEach(element => {
                     if (element !== undefined) {
                         row_numbers.push(element);
@@ -253,11 +248,11 @@ function get_min_value(_data, crime, state_name) {
 function draw_crime_graph(crime, state_name) {
 
     d3.csv(dataset_link).then(function (data) {
-        var max_value = get_max_value(data, crime, state_name);
-        var min_value = get_min_value(data, crime, state_name);
+        const max_value = get_max_value(data, crime, state_name);
+        const min_value = get_min_value(data, crime, state_name);
 
-        state_stats = data.filter(function (row) {
-            return row["state"] == state_name;
+        let state_stats = data.filter(function (row) {
+            return row["state"] === state_name;
         });
 
         const crime_stats = [];
@@ -270,9 +265,13 @@ function draw_crime_graph(crime, state_name) {
         y.domain([min_value, max_value]);
         x.domain([2001, 2016]);
 
-        var valueline = d3.line()
-            .x(function(d) { return x(d.year); })
-            .y(function(d) { return y(d.crime); });
+        const valueline = d3.line()
+            .x(function (d) {
+                return x(d.year);
+            })
+            .y(function (d) {
+                return y(d.crime);
+            });
 
         crime_chart.append("g")
            .attr("transform", "translate(0," + height_chart + ")")
@@ -291,24 +290,25 @@ draw_murder_graph(murder_weapon, state_name);
 function draw_murder_graph(murder_weapon, state_name) {
 
     d3.csv(dataset_link).then(function (data) {
-        var max_value = get_max_value(data, murder_weapon, state_name);
-        var min_value = get_min_value(data, murder_weapon, state_name);
+        let n_ticks, lower_year;
+        const max_value = get_max_value(data, murder_weapon, state_name);
+        const min_value = get_min_value(data, murder_weapon, state_name);
 
-        state_stats = data.filter(function (row) {
-            return row["state"] == state_name;
+        const state_stats = data.filter(function (row) {
+            return row["state"] === state_name;
         });
 
         if (state_name === "National") {
-            var lower_year = 2001;
+            lower_year = 2001;
         } else {
-            var lower_year = 2004;
-        };
+            lower_year = 2004;
+        }
 
         if (state_name === "National") {
-            var n_ticks = 8;
+            n_ticks = 8;
         } else {
-            var n_ticks = 6;
-        };
+            n_ticks = 6;
+        }
 
         const murder_weapon_stats = [];
         for (let i = 0; i < state_stats.length; i++) {
@@ -316,15 +316,19 @@ function draw_murder_graph(murder_weapon, state_name) {
                 murder_weapon_stats.push({year: state_stats[i].year, murder_weapon: state_stats[i][murder_weapon]});
             }
         }
-        var x = d3.scaleLinear().range([0, width_chart]);
-        var y = d3.scaleLinear().range([height_chart, 0]);
+        const x = d3.scaleLinear().range([0, width_chart]);
+        const y = d3.scaleLinear().range([height_chart, 0]);
 
         y.domain([min_value, max_value]);
         x.domain([lower_year, 2016]);
 
-        var valueline = d3.line()
-            .x(function(d) { return x(d.year); })
-            .y(function(d) { return y(d.murder_weapon); });
+        const valueline = d3.line()
+            .x(function (d) {
+                return x(d.year);
+            })
+            .y(function (d) {
+                return y(d.murder_weapon);
+            });
 
         murder_chart.append("g")
            .attr("transform", "translate(0," + height_chart + ")")
@@ -340,6 +344,7 @@ function draw_murder_graph(murder_weapon, state_name) {
         if (state_name === "Florida") {
             murder_chart.selectAll("g").remove();
             murder_chart.selectAll("path").remove();
+            murder_chart.append("text").text("We have no data")
             murder_chart.append("svg:image")
             .attr('x', 0)
             .attr('y', 90)
@@ -349,36 +354,33 @@ function draw_murder_graph(murder_weapon, state_name) {
         }
     })
 }
-// draw_crime_graph(crime, state_name);
 
-var mouseover = function (d) {
-  tooltip.style("visibility", "visible");
+const mouseover = function (d) {
+    tooltip.style("visibility", "visible");
 
-
-  d3.select(this)
-      .style("stroke", "black")
-      .style("opacity", mouse_over_opacity);
+    d3.select(this)
+        .style("stroke", "black")
+        .style("opacity", mouse_over_opacity);
 };
 
-var mouseleave = function (d) {
-  tooltip.style("visibility", "hidden");
+const mouseleave = function (d) {
+    tooltip.style("visibility", "hidden");
 
-  d3.select(this)
-      .style("stroke", "grey")
-      .style("opacity", default_opacity);
+    d3.select(this)
+        .style("stroke", "grey")
+        .style("opacity", default_opacity);
 };
 
-var mousemove = function (d) {
-  var state_name = d.target.firstChild.nodeValue;
+const mousemove = function (d) {
+    const state_name = d.target.firstChild.nodeValue;
 
-  tooltip
-    .style("top", d.pageY + "px")
-    .style("left", d.pageX + "px")
-    .html(state_name);
+    tooltip
+        .style("top", d.pageY + "px")
+        .style("left", d.pageX + "px")
+        .html(state_name);
 };
 
-var state_click = function (d) {
-    var coords = d3.pointer(d);
+const state_click = function (d) {
     state_name = d.target.firstChild.nodeValue;
     state_div.text(state_name);
     crime_chart.selectAll("g").remove();
@@ -388,70 +390,66 @@ var state_click = function (d) {
     murder_chart.selectAll("g").remove();
     murder_chart.selectAll("path").remove();
     murder_chart.select("image").remove();
+    murder_chart.select("text").remove();
     murder_weapon = d3.select(".chart2").select("select").property("value");
     draw_murder_graph(murder_weapon, state_name);
-}
-
-// почему-то ссылка побилась
-link_master = "https://raw.githubusercontent.com/Emidiant/crime-in-usa-visualisation/main/coordinates_extraction/state_coordinates/csv/polygon.csv"
-link_dev_julia = "https://raw.githubusercontent.com/Emidiant/crime-in-usa-visualisation/dev-julia/coordinates_extraction/state_coordinates/csv/polygon.csv";
+};
 
 draw_map(default_year);
 
 function draw_map(year) {
-    d3.csv(link_dev_julia, function (data) {
-    var state_name = data.state;
-    var state_points = JSON.parse(data.new_coordinates);
-    const red_fill = d3.interpolateReds(data[year]);
-    if (state_name !== "Alaska" && state_name !== "Hawaii") {
-        if (data.type !== "multipolygon") {
-            svg_map
-                .append("polyline")
-                .attr("class", state_name)
-                .style("fill", red_fill)
-                .text(state_name)
-                .attr("points", state_points);
-        } else {
-            for (let i = 0; i < state_points.length; i += 1) {
+    d3.csv("../coordinates_extraction/state_coordinates/csv/polygon.csv", function (data) {
+        const state_name = data.state;
+        const state_points = JSON.parse(data.new_coordinates);
+        const red_fill = d3.interpolateReds(data[year]);
+        if (state_name !== "Alaska" && state_name !== "Hawaii") {
+            if (data.type !== "multipolygon") {
                 svg_map
                     .append("polyline")
                     .attr("class", state_name)
-                    .text(data.state)
                     .style("fill", red_fill)
-                    .attr("points", state_points[i]);
-            }
-        }
-    } else {
-        if (state_name === "Alaska") {
-            for (let i = 0; i < state_points.length; i += 1) {
-                svg_map
-                    .append("polyline")
                     .text(state_name)
-                    .attr("class", state_name)
-                    .style("fill", red_fill)
-                    .attr("points", state_points[i])
-                    .attr("transform", "translate(-90,-1070)");
+                    .attr("points", state_points);
+            } else {
+                for (let i = 0; i < state_points.length; i += 1) {
+                    svg_map
+                        .append("polyline")
+                        .attr("class", state_name)
+                        .text(data.state)
+                        .style("fill", red_fill)
+                        .attr("points", state_points[i]);
+                }
             }
         } else {
-            for (let i = 0; i < state_points.length; i += 1) {
-                svg_map
-                    .append("polyline")
-                    .attr("class", state_name)
-                    .text(state_name)
-                    .style("fill", red_fill)
-                    .attr("points", state_points[i])
-                    .attr("transform", "translate(680, 250)");
-          }
+            if (state_name === "Alaska") {
+                for (let i = 0; i < state_points.length; i += 1) {
+                    svg_map
+                        .append("polyline")
+                        .text(state_name)
+                        .attr("class", state_name)
+                        .style("fill", red_fill)
+                        .attr("points", state_points[i])
+                        .attr("transform", "translate(-90,-1070)");
+                }
+            } else {
+                for (let i = 0; i < state_points.length; i += 1) {
+                    svg_map
+                        .append("polyline")
+                        .attr("class", state_name)
+                        .text(state_name)
+                        .style("fill", red_fill)
+                        .attr("points", state_points[i])
+                        .attr("transform", "translate(680, 250)");
+              }
+            }
         }
-    }
-    svg_map.selectAll("polyline")
-        .attr("stroke", "grey")
-        .attr("opacity", default_opacity)
-        .on("mouseover", mouseover)
-        .on("mousemove", mousemove)
-        .on("click", state_click)
-        .on("mouseleave", mouseleave);
-
+        svg_map.selectAll("polyline")
+            .attr("stroke", "grey")
+            .attr("opacity", default_opacity)
+            .on("mouseover", mouseover)
+            .on("mousemove", mousemove)
+            .on("click", state_click)
+            .on("mouseleave", mouseleave);
 });
 
 // перемещение карты после отрисовки
