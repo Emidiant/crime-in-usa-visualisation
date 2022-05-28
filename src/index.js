@@ -125,8 +125,19 @@ var state_click = function (d) {
     const margin_chart = {top: 20, right: 20, bottom: 40, left: 60},
                              width_chart = 400,
                              height_chart = 400;
-    var crime_chart = d3
+    const crime_charts_div = d3
         .select("#content")
+        .append("div")
+        .attr("class", "chart1")
+        .style("background-color", "wheat")
+        .style("height", height_chart + margin_chart.top + margin_chart.bottom)
+        .style("width", width_chart + margin_chart.left + margin_chart.right);
+
+    var dropDown = d3.select(".chart1").append("select")
+            .attr("name", "name-list");
+
+    var crime_chart = d3
+        .select(".chart1")
         .append("svg")
         .style("height", height_chart + margin_chart.top + margin_chart.bottom)
         .style("width", width_chart + margin_chart.left + margin_chart.right)
@@ -227,8 +238,8 @@ var state_click = function (d) {
 
         draw_crime_graph(crime, state_name);
 
-        var dropDown = d3.select("#content").append("select")
-            .attr("name", "name-list");
+
+
 
         var options = dropDown.selectAll("option")
             .data(crime_types)
