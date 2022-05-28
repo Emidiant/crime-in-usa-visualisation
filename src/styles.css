@@ -60,9 +60,15 @@ rect {
   fill: rgb(5, 66, 94);
 }
 
-path {
+.handler {
   /* circle */
   d: path("M -8, 0 a 8,8 0 1,1 16,0 a 8,8 0 1,1 -16,0");
   /*d: path("M -5.5 -5.5 v 10 l 6 5.5 l 6 -5.5 v -10 Z");*/
   fill: #05405b;
+}
+
+.crime_line {
+  stroke: #c92e2e;
+  fill: none;
+  stroke-width: 2;
 }
