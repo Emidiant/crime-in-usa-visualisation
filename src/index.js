@@ -1,5 +1,3 @@
-// import {Legend, Swatches} from "@d3/color-legend"
-
 let crime = "murder";
 let murder_weapon = "murder_cutting";
 let state_name = "National";
@@ -108,7 +106,7 @@ const crime_div = d3
     .attr("id", "crime_div")
     .style("text-align", "center");
 
-const margin_chart = {top: 0, right: 20, bottom: 25, left: 45},
+const margin_chart = {top: 5, right: 20, bottom: 30, left: 45},
                          width_chart = 400,
                          height_chart = 400;
 
@@ -298,6 +296,58 @@ function draw_crime_graph(crime, state_name) {
             .data([crime_stats])
             .attr("class", "crime_line")
             .attr("d", valueline);
+
+        var focus = crime_chart
+            .append('g')
+            .append('circle')
+            .style("fill", "#c92e2e")
+            .attr("stroke", "black")
+            .attr('r', 3.5)
+            .style("opacity", 0);
+
+        var focusText = crime_chart
+            .append('g')
+            .append('text')
+            .style("opacity", 0)
+            .style("font-size", "0.75em")
+            .attr("text-anchor", "left")
+            .attr("alignment-baseline", "middle")
+
+        crime_chart
+            .append('rect')
+            .style("fill", "none")
+            .style("pointer-events", "all")
+            .style('margin-bottom', "0")
+            .attr('width', width_chart)
+            .attr('height', height_chart-40)
+            .attr('y', 40)
+            .on('mouseover', mouseover_focus)
+            .on('mousemove', mousemove_focus)
+            .on('mouseout', mouseout_focus);
+
+        var bisect = d3.bisector(function(d) { return d.year; }).left;
+
+        function mouseover_focus() {
+            focus.style("opacity", 1)
+            focusText.style("opacity",1)
+        }
+
+        function mousemove_focus(event) {
+            const x0 = x.invert(d3.pointer(event)[0] - 10);
+            const i = bisect(crime_stats, x0, 1);
+            let selectedData = crime_stats[i]
+            focus
+                .attr("cx", x(selectedData.year))
+                .attr("cy", y(selectedData.crime))
+            focusText
+                .html(selectedData.crime)
+                .attr("x", x(selectedData.year) - 10)
+                .attr("y", y(selectedData.crime) - 15)
+        }
+        function mouseout_focus() {
+            focus.style("opacity", 0)
+            focusText.style("opacity", 0)
+        }
     })
 }
 
@@ -355,6 +405,58 @@ function draw_murder_graph(murder_weapon, state_name) {
             .data([murder_weapon_stats])
             .attr("class", "crime_line")
             .attr("d", valueline);
+
+        var focus = murder_chart
+            .append('g')
+            .append('circle')
+            .style("fill", "#c92e2e")
+            .attr("stroke", "black")
+            .attr('r', 3.5)
+            .style("opacity", 0);
+
+        var focusText = murder_chart
+            .append('g')
+            .append('text')
+            .style("opacity", 0)
+            .style("font-size", "0.75em")
+            .attr("text-anchor", "left")
+            .attr("alignment-baseline", "middle")
+
+        murder_chart
+            .append('rect')
+            .style("fill", "none")
+            .style("pointer-events", "all")
+            .style('margin-bottom', "0")
+            .attr('width', width_chart)
+            .attr('height', height_chart-40)
+            .attr('y', 40)
+            .on('mouseover', mouseover_focus)
+            .on('mousemove', mousemove_focus)
+            .on('mouseout', mouseout_focus);
+
+        var bisect = d3.bisector(function(d) { return d.year; }).left;
+
+        function mouseover_focus() {
+            focus.style("opacity", 1)
+            focusText.style("opacity",1)
+        }
+
+        function mousemove_focus(event) {
+            const x0 = x.invert(d3.pointer(event)[0] - 10);
+            const i = bisect(murder_weapon_stats, x0, 1);
+            let selectedData = murder_weapon_stats[i]
+            focus
+                .attr("cx", x(selectedData.year))
+                .attr("cy", y(selectedData.murder_weapon))
+            focusText
+                .html(selectedData.murder_weapon)
+                .attr("x", x(selectedData.year) - 10)
+                .attr("y", y(selectedData.murder_weapon) - 15)
+        }
+        function mouseout_focus() {
+            focus.style("opacity", 0)
+            focusText.style("opacity", 0)
+        }
 
         if (state_name === "Florida") {
             murder_chart.selectAll("g").remove();
