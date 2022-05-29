@@ -4,17 +4,11 @@ body {
 }
 
 svg {
-   /*background-color: wheat;*/
-   outline: solid #aaaac2;
+  outline: solid #aaaac2;
   display: block;
   margin: 10px auto;
   border-radius: 15px;
-  /* position: relative; */
 }
-
-/*svg .chart1 {*/
-
-/*}*/
 
 rect {
   display: flex;
@@ -24,27 +18,6 @@ rect {
   align-items: center;
   fill: none;
 }
-
-.map {
-  /* fill: none; */
-}
-
-.chart1 {
-  fill: grey;
-  margin-top: 5px;
-  vertical-align: center;
-  text-align: right;
-  /* right: '0'; */
-}
-
-.chart2 {
-  fill: gainsboro;
-  /* left: '0'; */
-}
-
-/*.line {*/
-/*  fill: goldenrod;*/
-/*}*/
 
 .axis text {
   font-size: 1.2em;

@@ -260,8 +260,8 @@ function draw_crime_graph(crime, state_name) {
         for (let i = 0; i < state_stats.length; i++) {
                 crime_stats.push({year: state_stats[i].year, crime: state_stats[i][crime]});
         }
-        var x = d3.scaleLinear().range([0, width_chart]);
-        var y = d3.scaleLinear().range([height_chart, 0]);
+        const x = d3.scaleLinear().range([0, width_chart]);
+        const y = d3.scaleLinear().range([height_chart, 0]);
 
         y.domain([min_value, max_value]);
         x.domain([2001, 2016]);
@@ -345,13 +345,20 @@ function draw_murder_graph(murder_weapon, state_name) {
         if (state_name === "Florida") {
             murder_chart.selectAll("g").remove();
             murder_chart.selectAll("path").remove();
-            murder_chart.append("text").text("We have no data")
+            murder_chart.append("text")
+                .text("Florida did not contribute to the NIBRS data collection")
+                .style("font-size", "0.8em")
+                .attr('x', 0)
+                .attr('y', 80)
+                .attr('width', "365")
+                .style("text-align", "center")
+                .style("color", "black");
             murder_chart.append("svg:image")
-            .attr('x', 0)
-            .attr('y', 90)
-            .attr('width', "365")
-            .attr('opacity', 0.9)
-            .attr("href", "./src/images/Florida.jpg");
+                .attr('x', 0)
+                .attr('y', 90)
+                .attr('width', "365")
+                .attr('opacity', 0.9)
+                .attr("href", "./src/images/Florida.jpg");
         }
     })
 }
