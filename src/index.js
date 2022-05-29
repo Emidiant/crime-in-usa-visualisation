@@ -198,7 +198,7 @@ function get_max_value(_data, crime, state_name) {
                 crimes.push(_data[i][crime]);
             }
         }
-        return Math.max(...crimes);
+        return Math.max(...crimes) * 1.2;
     } else {
         let max_value = 0;
         for (let key in _data) {
@@ -226,7 +226,7 @@ function get_min_value(_data, crime, state_name) {
                 crimes.push(_data[i][crime]);
             }
         }
-        return Math.min(...crimes);
+        return Math.min(...crimes) * 0.8;
     } else {
         let min_value = 10E10;
         for (let key in _data) {
