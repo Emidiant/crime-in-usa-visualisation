@@ -398,7 +398,9 @@ const state_click = function (d) {
 draw_map(default_year);
 
 function draw_map(year) {
-    d3.csv("../coordinates_extraction/state_coordinates/csv/polygon.csv", function (data) {
+    const link_master = "https://raw.githubusercontent.com/Emidiant/crime-in-usa-visualisation/main/coordinates_extraction/state_coordinates/csv/polygon.csv"
+
+    d3.csv(link_master, function (data) {
         const state_name = data.state;
         const state_points = JSON.parse(data.new_coordinates);
         const red_fill = d3.interpolateReds(data[year]);
