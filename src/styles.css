@@ -57,7 +57,7 @@ rect {
   fill: rgb(5, 66, 94);
 }
 
-.handler {
+.handle {
   /* circle */
   d: path("M -8, 0 a 8,8 0 1,1 16,0 a 8,8 0 1,1 -16,0");
   fill: #05405b;
