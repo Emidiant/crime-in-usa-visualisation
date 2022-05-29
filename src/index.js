@@ -1,3 +1,5 @@
+// import {Legend, Swatches} from "@d3/color-legend"
+
 let crime = "murder";
 let murder_weapon = "murder_cutting";
 let state_name = "National";
@@ -13,18 +15,39 @@ const title = d3
     .style("text-align", "center")
     .style("font-size", "1.8em")
     .style("margin-left", "auto")
+    .style("margin-bottom", "10px")
     .style("margin-right", "auto")
     .html("Crime in United States");
 
+const div_map_slider = d3.select("#content")
+    .append("div")
+    .attr("class", "div_map_slider")
+    .style("width", "800px")
+    .style("height", "490px")
+    .style("display", "block")
+    .style("margin", "auto")
+    .style("border", "2px solid #aaaac2")
+    .style("border-radius", "15px");
+
 const svg_map = d3
-    .select("#content")
+    .select(".div_map_slider")
     .append("svg")
     .attr("width", 800)
     .attr("height", 400)
     .append("g");
 
+svg_map.append("g")
+    .attr("transform", "translate(555,30)")
+    .append(() => Legend(
+        d3.scaleSequential([0.00032, 0.00332], d3.interpolateReds), {
+            width: 260,
+            ticks: 5,
+            title: "Murder percentage of total crimes in the state",
+            tickFormat: "%"
+    }));
+
 const tooltip = d3
-    .select("#content")
+    .select(".div_map_slider")
     .append("div")
     .style("display", "block")
     .style("position", "absolute")
@@ -56,7 +79,7 @@ const slider = d3
     });
 
 const slider_svg = d3
-    .select("#content")
+    .select(".div_map_slider")
     .append("svg")
     .attr("class", "#mySlider")
     .attr("width", 800)
@@ -76,6 +99,7 @@ const state_div = d3
     .style("margin-top", "15px")
     .style("margin-left", "auto")
     .style("margin-right", "auto")
+    .style("margin-bottom", "10px")
     .text("National");
 
 const crime_div = d3
@@ -84,7 +108,7 @@ const crime_div = d3
     .attr("id", "crime_div")
     .style("text-align", "center");
 
-const margin_chart = {top: 20, right: 20, bottom: 40, left: 60},
+const margin_chart = {top: 0, right: 20, bottom: 25, left: 45},
                          width_chart = 400,
                          height_chart = 400;
 
@@ -93,9 +117,7 @@ const crime_charts_div = d3
     .append("div")
     .attr("class", "chart1")
     .style("height", height_chart + margin_chart.top + margin_chart.bottom)
-    .style("width", width_chart + margin_chart.left + margin_chart.right)
-    .style("display", "inline-block")
-    .style("text-align", "center");
+    .style("width", width_chart + margin_chart.left + margin_chart.right);
 
 const murder_charts_div = d3
     .select("#crime_div")
@@ -103,20 +125,6 @@ const murder_charts_div = d3
     .attr("class", "chart2")
     .style("height", height_chart + margin_chart.top + margin_chart.bottom)
     .style("width", width_chart + margin_chart.left + margin_chart.right)
-    .style("margin-left", "10px")
-    .style("display", "inline-block");
-
-const tooltip_murder = d3
-    .select("#crime_div")
-    .append("div")
-    .style("display", "block")
-    .style("position", "absolute")
-    .style("visibility", "hidden")
-    .style("background-color", "rgba(255, 255, 255, 0.7)")
-    .style("border", "solid")
-    .style("border-width", "1px")
-    .style("border-radius", "5px")
-    .style("padding", "10px");
 
 const crime_types = ['murder', 'robbery', 'agg_assault',
     'burglary', 'larceny', 'vehicle_theft',
@@ -131,7 +139,10 @@ const crime_types_dict = {
     'hate_crime_other': 'Hate crime other'
 };
 
-const dropDown = d3.select(".chart1").append("select")
+const dropDown = d3.select(".chart1")
+    .append("div")
+    .attr("class", "selector")
+    .append("select")
     .attr("name", "name-list");
 
 const options = dropDown.selectAll("option")
@@ -155,6 +166,8 @@ const murder_types_dict = {'murder_cutting':'Cutting murders',
                            'murder_other': 'Other murders'}
 
 const dropDown_murder = d3.select(".chart2")
+    .append("div")
+    .attr("class", "selector")
     .append("select")
     .attr("name", "name-list2");
 
@@ -439,7 +452,7 @@ function draw_map(year) {
                         .attr("class", state_name)
                         .style("fill", red_fill)
                         .attr("points", state_points[i])
-                        .attr("transform", "translate(-90,-1070)");
+                        .attr("transform", "translate(-90,-1075)");
                 }
             } else {
                 for (let i = 0; i < state_points.length; i += 1) {
@@ -463,5 +476,5 @@ function draw_map(year) {
 });
 
 // перемещение карты после отрисовки
-svg_map.attr("transform", "translate(-20,-40)")
+svg_map.attr("transform", "translate(-20,-25)")
 }
