@@ -35,6 +35,7 @@ const tooltip = d3
     .style("border-radius", "5px")
     .style("padding", "10px");
 
+const color_link = "https://raw.githubusercontent.com/Emidiant/crime-in-usa-visualisation/main/coordinates_extraction/state_coordinates/csv/color.csv";
 const slider = d3
     .sliderHorizontal()
     .min(2001)
@@ -46,7 +47,7 @@ const slider = d3
     .displayFormat(d3.format(".0f"))
     .tickFormat(d3.format(".0f"))
     .on('onchange', (year) => {
-         d3.csv("../coordinates_extraction/state_coordinates/csv/color.csv", function(d) {
+         d3.csv(color_link, function(d) {
              const red_fill = d3.interpolateReds(d[year]);
             svg_map
               .selectAll('.'+ d.state)
@@ -399,7 +400,6 @@ draw_map(default_year);
 
 function draw_map(year) {
     const link_master = "https://raw.githubusercontent.com/Emidiant/crime-in-usa-visualisation/main/coordinates_extraction/state_coordinates/csv/polygon.csv"
-
     d3.csv(link_master, function (data) {
         const state_name = data.state;
         const state_points = JSON.parse(data.new_coordinates);
