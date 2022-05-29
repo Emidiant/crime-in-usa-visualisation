@@ -122,6 +122,7 @@ const crime_types = ['murder', 'robbery', 'agg_assault',
     'burglary', 'larceny', 'vehicle_theft',
     'rape', 'mass_shootings', 'hate_crime_murder',
     'hate_crime_other'];
+crime_types.sort();
 
 const crime_types_dict = {
     'murder': 'Murder', 'robbery': 'Robbery', 'agg_assault': 'Aggrevated assault',
