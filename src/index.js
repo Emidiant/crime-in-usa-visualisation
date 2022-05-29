@@ -106,7 +106,7 @@ const crime_div = d3
     .attr("id", "crime_div")
     .style("text-align", "center");
 
-const margin_chart = {top: 5, right: 20, bottom: 30, left: 45},
+const margin_chart = {top: 5, right: 38, bottom: 30, left: 60},
                          width_chart = 400,
                          height_chart = 400;
 
